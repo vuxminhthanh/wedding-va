@@ -19,7 +19,7 @@ export function Hero({ data }: HeroProps) {
   const imageAlt = `Ảnh cưới ${data.groomName} và ${data.brideName}`;
   const desktopHeroImage = data.heroImageDesktop || data.heroImage;
   const imageClassName =
-    "h-full w-full object-cover sm:w-auto sm:max-w-[min(70vw,720px)] sm:object-contain sm:object-center sm:drop-shadow-2xl";
+    "h-full w-full object-cover object-[center_32%] min-[769px]:w-auto min-[769px]:max-w-[min(70vw,720px)] min-[769px]:object-contain min-[769px]:object-center min-[769px]:drop-shadow-2xl";
   const {
     props: { srcSet: mobileSrcSet, ...mobileImageProps }
   } = getImageProps({
@@ -40,7 +40,7 @@ export function Hero({ data }: HeroProps) {
     height: 2048,
     priority: true,
     quality: 92,
-    sizes: "(min-width: 640px) min(70vw, 720px), 100vw",
+    sizes: "(min-width: 769px) min(70vw, 720px), 100vw",
     src: desktopHeroImage,
     width: 1365
   });
@@ -50,54 +50,54 @@ export function Hero({ data }: HeroProps) {
       <div className="botanical-image-fallback absolute inset-0" />
       <div
         aria-hidden="true"
-        className="absolute inset-0 hidden scale-[1.08] bg-cover bg-center opacity-85 blur-[28px] sm:block"
+        className="absolute inset-0 hidden scale-[1.08] bg-cover bg-center opacity-85 blur-[28px] min-[769px]:block"
         style={{ backgroundImage: `url("${desktopHeroImage}")` }}
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 hidden bg-gradient-to-t from-sage-deep/70 via-sage-deep/22 to-ivory/10 sm:block"
+        className="absolute inset-0 hidden bg-gradient-to-t from-sage-deep/70 via-sage-deep/22 to-ivory/10 min-[769px]:block"
       />
-      <picture className="absolute inset-0 sm:flex sm:items-center sm:justify-center">
+      <picture className="absolute inset-0 min-[769px]:flex min-[769px]:items-center min-[769px]:justify-center">
         <source
-          media="(min-width: 640px)"
+          media="(min-width: 769px)"
           sizes="min(70vw, 720px)"
           srcSet={desktopSrcSet}
         />
-        <source media="(max-width: 639px)" srcSet={mobileSrcSet} />
+        <source media="(max-width: 768px)" srcSet={mobileSrcSet} />
         <img {...mobileImageProps} alt={imageAlt} />
       </picture>
-      <div className="absolute inset-0 bg-gradient-to-t from-sage-deep/86 via-sage-deep/34 to-ink/8 sm:from-sage-deep/68 sm:via-sage-deep/16 sm:to-transparent" />
-      <div className="section-shell relative z-10 pb-20 pt-28 sm:pb-28">
-        <div className="mx-auto max-w-xl rounded-lg bg-sage-deep/60 px-5 py-5 text-center shadow-soft ring-1 ring-ivory/12 backdrop-blur-[2px] sm:mx-0 sm:max-w-2xl sm:bg-sage-deep/30 sm:px-6 sm:py-7 sm:text-left">
-          <p className="text-xs font-semibold uppercase tracking-[0.26em] text-ivory/85">
+      <div className="absolute inset-0 bg-gradient-to-t from-sage-deep/[0.78] via-sage-deep/[0.26] to-ink/[0.06] min-[769px]:from-sage-deep/[0.68] min-[769px]:via-sage-deep/[0.16] min-[769px]:to-transparent" />
+      <div className="section-shell relative z-10 px-4 pb-[calc(5.75rem+env(safe-area-inset-bottom))] pt-20 min-[769px]:px-6 min-[769px]:pb-28 min-[769px]:pt-28 lg:px-8">
+        <div className="mx-auto w-full max-w-none rounded-md bg-sage-deep/[0.64] px-[18px] py-[22px] text-center shadow-soft ring-1 ring-ivory/[0.12] backdrop-blur-[0.5px] min-[769px]:mx-0 min-[769px]:max-w-2xl min-[769px]:rounded-lg min-[769px]:bg-sage-deep/30 min-[769px]:px-6 min-[769px]:py-7 min-[769px]:text-left min-[769px]:backdrop-blur-[2px]">
+          <p className="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-ivory/85 min-[769px]:text-xs min-[769px]:tracking-[0.26em]">
             We&apos;re getting married
           </p>
-          <h1 className="mt-4 flex flex-col items-center font-serif text-4xl leading-none text-ivory sm:mt-5 sm:block sm:text-7xl sm:leading-tight">
-            <span className="block sm:inline">{data.groomName}</span>
-            <span className="block text-2xl leading-none text-champagne sm:mx-3 sm:inline sm:text-7xl">
+          <h1 className="mt-3 flex flex-col items-center font-serif text-[clamp(38px,10vw,52px)] leading-[0.98] text-ivory min-[769px]:mt-5 min-[769px]:block min-[769px]:text-7xl min-[769px]:leading-tight">
+            <span className="block min-[769px]:inline">{data.groomName}</span>
+            <span className="block text-[0.62em] leading-none text-champagne min-[769px]:mx-3 min-[769px]:inline min-[769px]:text-7xl">
               &amp;
             </span>
-            <span className="block sm:inline">{data.brideName}</span>
+            <span className="block min-[769px]:inline">{data.brideName}</span>
           </h1>
-          <div className="mt-4 flex items-center justify-center gap-3 text-sm font-semibold text-ivory/92 sm:mt-6 sm:justify-start sm:text-base">
-            <CalendarDays aria-hidden="true" className="h-5 w-5 text-champagne" />
+          <div className="mt-3 flex items-center justify-center gap-2 text-[15px] font-semibold text-ivory/[0.92] min-[769px]:mt-6 min-[769px]:justify-start min-[769px]:gap-3 min-[769px]:text-base">
+            <CalendarDays aria-hidden="true" className="h-[18px] w-[18px] text-champagne min-[769px]:h-5 min-[769px]:w-5" />
             <span>{weddingDate}</span>
           </div>
-          <p className="mt-5 hidden max-w-xl text-base leading-8 text-ivory/88 sm:block sm:text-lg">
+          <p className="mt-5 hidden max-w-xl text-base leading-8 text-ivory/[0.88] min-[769px]:block min-[769px]:text-lg">
             Trân trọng kính mời bạn đến dự lễ cưới của chúng mình.
           </p>
-          <div className="mt-5 grid grid-cols-1 gap-2 sm:mt-8 sm:flex sm:gap-3">
+          <div className="mt-4 grid grid-cols-1 gap-2 min-[769px]:mt-8 min-[769px]:flex min-[769px]:gap-3">
             <a
-              className="inline-flex min-h-12 min-w-0 flex-1 items-center justify-center rounded-full bg-ivory px-3 text-xs font-semibold text-sage-deep shadow-soft transition hover:bg-cream sm:flex-none sm:px-6 sm:text-sm"
+              className="inline-flex min-h-[52px] min-w-0 flex-1 items-center justify-center rounded-full bg-ivory px-3 text-[13px] font-semibold text-sage-deep shadow-soft transition hover:bg-cream min-[769px]:min-h-12 min-[769px]:flex-none min-[769px]:px-6 min-[769px]:text-sm"
               href="#rsvp"
             >
               Xác nhận tham dự
             </a>
             <a
-              className="inline-flex min-h-12 min-w-0 flex-1 items-center justify-center gap-1 rounded-full border border-ivory/42 bg-sage-deep/40 px-3 text-xs font-semibold text-ivory transition hover:bg-sage-deep/55 sm:flex-none sm:gap-2 sm:bg-transparent sm:px-6 sm:text-sm sm:hover:bg-ivory/12"
+              className="inline-flex min-h-[52px] min-w-0 flex-1 items-center justify-center gap-1 rounded-full border border-ivory/[0.42] bg-sage-deep/[0.44] px-3 text-[13px] font-semibold text-ivory transition hover:bg-sage-deep/[0.55] min-[769px]:min-h-12 min-[769px]:flex-none min-[769px]:gap-2 min-[769px]:bg-transparent min-[769px]:px-6 min-[769px]:text-sm min-[769px]:hover:bg-ivory/12"
               href="#locations"
             >
-              <MapPin aria-hidden="true" className="h-4 w-4" />
+              <MapPin aria-hidden="true" className="h-[17px] w-[17px] min-[769px]:h-4 min-[769px]:w-4" />
               Xem địa điểm
             </a>
           </div>

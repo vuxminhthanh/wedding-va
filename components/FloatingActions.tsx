@@ -6,7 +6,7 @@ export function FloatingActions() {
       aria-label="Thao tác nhanh"
       className="fixed inset-x-0 bottom-3 z-40 px-4 sm:hidden"
     >
-      <div className="mx-auto grid max-w-sm grid-cols-3 gap-2 rounded-full bg-ivory/94 p-2 shadow-soft ring-1 ring-sage/12 backdrop-blur">
+      <div className="mx-auto grid max-w-sm grid-cols-3 gap-2 rounded-full bg-ivory/94 p-2 shadow-soft backdrop-blur">
         <a
           className="inline-flex min-h-11 items-center justify-center gap-1 rounded-full bg-sage px-3 text-xs font-semibold text-white"
           href="#rsvp"
