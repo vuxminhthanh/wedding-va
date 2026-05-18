@@ -47,7 +47,7 @@ Bạn có thể đổi tên hoặc thêm ảnh mới, chỉ cần cập nhật l
 8. Deploy và copy Web App URL.
 
 Các cột được ghi: Timestamp, Name, Phone, Attending, Guests, Event, Message.
-Timestamp được tạo trong Apps Script; API chỉ gửi dữ liệu RSVP đã được trim và format trước khi ghi Sheet.
+Timestamp được tạo trong Apps Script theo múi giờ Việt Nam và ghi dạng `dd/MM/yyyy`; API chỉ gửi dữ liệu RSVP đã được trim và format trước khi ghi Sheet.
 
 ## Biến môi trường local
 

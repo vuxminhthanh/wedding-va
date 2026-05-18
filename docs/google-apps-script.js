@@ -34,8 +34,8 @@ function doPost(e) {
     var data = JSON.parse((e && e.postData && e.postData.contents) || "{}");
     var formattedDate = Utilities.formatDate(
       new Date(),
-      Session.getScriptTimeZone(),
-      "yyyy-MM-dd HH:mm:ss"
+      "Asia/Ho_Chi_Minh",
+      "dd/MM/yyyy"
     );
 
     sheet.appendRow([
