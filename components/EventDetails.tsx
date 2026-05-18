@@ -15,12 +15,26 @@ import type { WeddingEvent, WeddingLocations } from "@/data/wedding";
 type EventDetailsProps = {
   events: WeddingEvent[];
   locations: WeddingLocations;
+  weddingDate: string;
 };
 
-export function EventDetails({ events, locations }: EventDetailsProps) {
+const formatWeddingDate = (date: string) =>
+  new Intl.DateTimeFormat("vi-VN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    timeZone: "Asia/Ho_Chi_Minh"
+  }).format(new Date(date));
+
+export function EventDetails({
+  events,
+  locations,
+  weddingDate
+}: EventDetailsProps) {
   const [copiedLocation, setCopiedLocation] = useState<keyof WeddingLocations | null>(
     null
   );
+  const weddingDateLabel = formatWeddingDate(weddingDate);
 
   const copyAddress = async (address: string, key: keyof WeddingLocations) => {
     try {
@@ -75,12 +89,14 @@ export function EventDetails({ events, locations }: EventDetailsProps) {
                 </div>
 
                 <div className="mt-5 space-y-4 text-sm leading-6 text-ink/75">
-                  <p className="flex gap-3">
+                  <p className="flex items-center gap-3">
                     <Clock
                       aria-hidden="true"
-                      className="mt-0.5 h-4 w-4 shrink-0 text-sage"
+                      className="h-4 w-4 shrink-0 text-sage"
                     />
-                    <span>{event.time}</span>
+                    <span>
+                      {event.time} - {event.dayLabel}, {weddingDateLabel}
+                    </span>
                   </p>
                   {event.locationLabel ? (
                     <p className="inline-flex min-h-9 items-center gap-2 rounded-full bg-sage/10 px-3 text-sm font-semibold text-sage-deep">

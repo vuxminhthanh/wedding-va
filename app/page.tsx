@@ -19,7 +19,11 @@ export default function Home() {
         <Hero data={weddingData} />
         <Countdown weddingDate={weddingData.weddingDate} />
         <InvitationMessage data={weddingData} />
-        <EventDetails events={weddingData.events} locations={weddingData.locations} />
+        <EventDetails
+          events={weddingData.events}
+          locations={weddingData.locations}
+          weddingDate={weddingData.weddingDate}
+        />
         <Gallery imageAlt={weddingImageAlt} images={weddingData.galleryImages} />
         <RSVPForm />
         <Wishes />
