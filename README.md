@@ -46,7 +46,8 @@ Bạn có thể đổi tên hoặc thêm ảnh mới, chỉ cần cập nhật l
 7. Chọn `Who has access: Anyone with the link`.
 8. Deploy và copy Web App URL.
 
-Các cột được ghi: Timestamp, Name, Phone, Attending, Guests, Event, Message, Source, UserAgent.
+Các cột được ghi: Timestamp, Name, Phone, Attending, Guests, Event, Message.
+Timestamp được tạo trong Apps Script; API chỉ gửi dữ liệu RSVP đã được trim và format trước khi ghi Sheet.
 
 ## Biến môi trường local
 

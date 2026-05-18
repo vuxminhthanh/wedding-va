@@ -7,23 +7,42 @@ type RSVPBody = {
   guests?: unknown;
   event?: unknown;
   message?: unknown;
-  source?: unknown;
+  side?: unknown;
   honeypot?: unknown;
 };
 
-const attendingValues = new Set(["yes", "no", "maybe"]);
+const attendingLabels = {
+  yes: "Có tham dự",
+  no: "Không tham dự",
+  "Có tham dự": "Có tham dự",
+  "Không tham dự": "Không tham dự"
+} as const;
+
+const eventLabels = {
+  "Nhà gái": "Nhà gái",
+  "Nhà trai": "Nhà trai",
+  bride: "Nhà gái",
+  groom: "Nhà trai"
+} as const;
 
 function asString(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function formatAttending(value: string) {
+  return attendingLabels[value as keyof typeof attendingLabels] ?? "";
+}
+
+function formatEvent(value: string) {
+  return eventLabels[value as keyof typeof eventLabels] ?? "";
+}
+
 function validateBody(body: RSVPBody) {
   const name = asString(body.name);
   const phone = asString(body.phone);
-  const attending = asString(body.attending);
-  const event = asString(body.event);
+  const attending = formatAttending(asString(body.attending));
+  const event = formatEvent(asString(body.event) || asString(body.side));
   const message = asString(body.message);
-  const source = asString(body.source);
   const honeypot = asString(body.honeypot);
   const guests = Number(body.guests);
 
@@ -35,7 +54,7 @@ function validateBody(body: RSVPBody) {
     return { ok: false as const, message: "Tên cần có ít nhất 2 ký tự." };
   }
 
-  if (!attendingValues.has(attending)) {
+  if (!attending) {
     return { ok: false as const, message: "Trạng thái tham dự không hợp lệ." };
   }
 
@@ -63,8 +82,7 @@ function validateBody(body: RSVPBody) {
       attending,
       guests,
       event,
-      message,
-      source: source.slice(0, 200)
+      message
     }
   };
 }
@@ -107,19 +125,13 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const payload = {
-    timestamp: new Date().toISOString(),
-    ...validation.data,
-    userAgent: request.headers.get("user-agent") ?? ""
-  };
-
   try {
     const response = await fetch(googleScriptUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(validation.data),
       cache: "no-store"
     });
 

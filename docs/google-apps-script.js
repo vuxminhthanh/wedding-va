@@ -20,9 +20,7 @@ function setupSheetHeaders() {
     "Attending",
     "Guests",
     "Event",
-    "Message",
-    "Source",
-    "UserAgent"
+    "Message"
   ]);
 }
 
@@ -33,18 +31,21 @@ function doPost(e) {
     lock.waitLock(10000);
 
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
-    var payload = JSON.parse((e && e.postData && e.postData.contents) || "{}");
+    var data = JSON.parse((e && e.postData && e.postData.contents) || "{}");
+    var formattedDate = Utilities.formatDate(
+      new Date(),
+      Session.getScriptTimeZone(),
+      "yyyy-MM-dd HH:mm:ss"
+    );
 
     sheet.appendRow([
-      payload.timestamp || new Date().toISOString(),
-      payload.name || "",
-      payload.phone || "",
-      payload.attending || "",
-      payload.guests || "",
-      payload.event || "",
-      payload.message || "",
-      payload.source || "",
-      payload.userAgent || ""
+      formattedDate,
+      data.name || "",
+      data.phone || "",
+      data.attending || "",
+      data.guests || 1,
+      data.event || "",
+      data.message || ""
     ]);
 
     return ContentService.createTextOutput(JSON.stringify({ ok: true }))

@@ -1,9 +1,9 @@
 "use client";
 
-import { Send } from "lucide-react";
-import { FormEvent, useEffect, useState } from "react";
+import { AlertCircle, CheckCircle2, Send } from "lucide-react";
+import { FormEvent, useRef, useState } from "react";
 
-type AttendingStatus = "yes" | "no" | "maybe";
+type AttendingStatus = "yes" | "no";
 
 type FormState = {
   name: string;
@@ -17,11 +17,10 @@ type FormState = {
 
 const attendingOptions: Array<{ value: AttendingStatus; label: string }> = [
   { value: "yes", label: "Có tham dự" },
-  { value: "maybe", label: "Sẽ báo lại" },
   { value: "no", label: "Không tham dự" }
 ];
 
-const partyOptions = ["Nhà gái", "Nhà trai", "Cả hai", "Chưa chắc"];
+const partyOptions = ["Nhà gái", "Nhà trai"];
 
 const initialForm: FormState = {
   name: "",
@@ -42,7 +41,7 @@ function validateForm(form: FormState) {
     return "Vui lòng nhập tên ít nhất 2 ký tự.";
   }
 
-  if (!["yes", "no", "maybe"].includes(form.attending)) {
+  if (!["yes", "no"].includes(form.attending)) {
     return "Vui lòng chọn trạng thái tham dự.";
   }
 
@@ -63,29 +62,34 @@ function validateForm(form: FormState) {
 
 export function RSVPForm() {
   const [form, setForm] = useState<FormState>(initialForm);
-  const [source, setSource] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle"
   );
   const [feedback, setFeedback] = useState("");
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const sourceParam =
-      params.get("source") ?? params.get("src") ?? params.get("utm_source");
-    setSource(sourceParam ? `${window.location.pathname}?source=${sourceParam}` : window.location.pathname);
-  }, []);
+  const isSubmittingRef = useRef(false);
 
   const updateForm = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((current) => ({ ...current, [key]: value }));
+
+    if (status === "success" || status === "error") {
+      setStatus("idle");
+      setFeedback("");
+    }
   };
 
   const submitForm = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (isSubmittingRef.current) {
+      return;
+    }
+
+    isSubmittingRef.current = true;
+
     const validationMessage = validateForm(form);
 
     if (validationMessage) {
+      isSubmittingRef.current = false;
       setStatus("error");
       setFeedback(validationMessage);
       return;
@@ -101,52 +105,37 @@ export function RSVPForm() {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          ...form,
           name: form.name.trim(),
           phone: form.phone.trim(),
+          attending: form.attending,
+          guests: form.guests,
+          event: form.event,
           message: form.message.trim(),
-          source
+          honeypot: form.honeypot
         })
       });
       const result = (await response.json()) as { ok: boolean; message?: string };
 
       if (!response.ok || !result.ok) {
-        throw new Error(result.message || "Không thể gửi RSVP lúc này.");
+        throw new Error(result.message || "Không thể gửi phản hồi lúc này.");
       }
 
       setStatus("success");
-      setFeedback("Cảm ơn bạn đã phản hồi. Chúng mình đã nhận được RSVP.");
-    } catch (error) {
+      setFeedback("Cảm ơn bạn! Thông tin phản hồi đã được gửi thành công.");
+      setForm(initialForm);
+    } catch {
       setStatus("error");
-      setFeedback(
-        error instanceof Error
-          ? error.message
-          : "Không thể gửi RSVP lúc này. Vui lòng thử lại sau."
-      );
+      setFeedback("Có lỗi xảy ra khi gửi phản hồi. Bạn vui lòng thử lại sau nhé.");
+    } finally {
+      isSubmittingRef.current = false;
     }
   };
-
-  if (status === "success") {
-    return (
-      <section className="bg-cream py-16 sm:py-24" id="rsvp">
-        <div className="section-shell">
-          <div className="botanical-card botanical-pattern mx-auto max-w-2xl px-5 py-10 text-center sm:px-10">
-            <p className="section-kicker">RSVP</p>
-            <h2 className="mt-4 font-serif text-4xl text-sage-deep">
-              Chúng mình đã nhận được phản hồi
-            </h2>
-            <p className="mt-4 text-base leading-7 text-ink/70">{feedback}</p>
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section className="bg-cream py-16 sm:py-24" id="rsvp">
       <div className="section-shell">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="section-kicker">RSVP</p>
+          <p className="section-kicker">Tham gia</p>
           <h2 className="mt-4 font-serif text-4xl text-sage-deep sm:text-5xl">
             Xác nhận tham dự
           </h2>
@@ -214,7 +203,7 @@ export function RSVPForm() {
             <legend className="text-sm font-semibold text-sage-deep">
               Bạn có tham dự không? *
             </legend>
-            <div className="mt-3 grid gap-2 sm:grid-cols-3">
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
               {attendingOptions.map((option) => (
                 <label
                   className={[
@@ -243,7 +232,7 @@ export function RSVPForm() {
             <legend className="text-sm font-semibold text-sage-deep">
               Bạn dự tiệc bên nào? *
             </legend>
-            <div className="mt-3 grid gap-2 sm:grid-cols-4">
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
               {partyOptions.map((option) => (
                 <label
                   className={[
@@ -286,7 +275,6 @@ export function RSVPForm() {
             </p>
           </div>
 
-          <input name="source" type="hidden" value={source} />
           <div aria-hidden="true" className="absolute -left-[9999px] top-auto">
             <label htmlFor="website">Website</label>
             <input
@@ -300,17 +288,23 @@ export function RSVPForm() {
           </div>
 
           {feedback ? (
-            <p
+            <div
+              aria-live="polite"
               className={[
-                "rounded-lg px-4 py-3 text-sm",
+                "flex items-start gap-3 rounded-lg px-4 py-3 text-sm leading-6 ring-1",
                 status === "error"
-                  ? "bg-red-50 text-red-700"
-                  : "bg-sage/10 text-sage-deep"
+                  ? "bg-red-50 text-red-700 ring-red-100"
+                  : "bg-sage/10 text-sage-deep ring-sage/15"
               ].join(" ")}
-              role="status"
+              role={status === "error" ? "alert" : "status"}
             >
-              {feedback}
-            </p>
+              {status === "error" ? (
+                <AlertCircle aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0" />
+              ) : (
+                <CheckCircle2 aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0" />
+              )}
+              <p>{feedback}</p>
+            </div>
           ) : null}
 
           <button

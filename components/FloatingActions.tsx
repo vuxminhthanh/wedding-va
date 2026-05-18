@@ -12,7 +12,7 @@ export function FloatingActions() {
           href="#rsvp"
         >
           <MessageCircle aria-hidden="true" className="h-4 w-4" />
-          RSVP
+          Tham gia
         </a>
         <a
           className="inline-flex min-h-11 items-center justify-center gap-1 rounded-full px-3 text-xs font-semibold text-sage-deep hover:bg-sage/10"
