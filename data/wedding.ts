@@ -95,7 +95,7 @@ export const weddingData: WeddingData = {
       time: "09:30",
       title: "Lễ Thành Hôn",
       side: "groom",
-      locationLabel: "Nhà trai"
+      locationLabel: "Tổ chức tại tư gia nhà trai"
     }
   ],
   bankInfo: {
