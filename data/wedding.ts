@@ -63,9 +63,8 @@ export const weddingData: WeddingData = {
     "/images/gallery/gallery-couple-floral-arch-full.webp",
     "/images/gallery/gallery-couple-floral-arch-side.webp",
     "/images/gallery/gallery-couple-garden-close.webp",
-    "/images/gallery/gallery-couple-studio.webp",
-    "/images/gallery/gallery-bride-portrait.webp",
-    "/images/gallery/gallery-groom-portrait.webp"
+    "/images/gallery/gallery-groom-portrait.webp",
+    "/images/gallery/gallery-bride-portrait.webp"
   ],
   locations: {
     brideSide: {
