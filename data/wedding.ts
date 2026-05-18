@@ -53,7 +53,7 @@ export const weddingData: WeddingData = {
   groomName: "Việt Anh",
   brideName: "Lê Tươi",
   displayName: "Việt Anh & Lê Tươi",
-  weddingDate: "2026-05-31T10:00:00+07:00",
+  weddingDate: "2026-06-07T10:00:00+07:00",
   heroImage: "/images/hero-desktop-1920x1080-blur-bg.webp",
   heroImageMobile: "/images/hero-mobile-1080x1920.webp",
   heroImageDesktop: "/images/hero-desktop-1920x1080-blur-bg.webp",
@@ -86,14 +86,14 @@ export const weddingData: WeddingData = {
     {
       dayLabel: "Chủ Nhật",
       time: "09:00",
-      title: "Tiệc cưới",
+      title: "Lễ Vu Quy",
       side: "bride",
-      locationLabel: "Nhà gái"
+      locationLabel: "Tổ chức tại tư gia nhà gái"
     },
     {
       dayLabel: "Chủ Nhật",
       time: "09:30",
-      title: "Tiệc cưới",
+      title: "Lễ Thành Hôn",
       side: "groom",
       locationLabel: "Nhà trai"
     }
