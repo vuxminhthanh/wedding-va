@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
       {
         ok: false,
         message:
-          "RSVP chưa được cấu hình. Vui lòng thêm GOOGLE_SCRIPT_URL trên server."
+          "Xác nhận tham dự chưa được cấu hình. Vui lòng thêm GOOGLE_SCRIPT_URL trên server."
       },
       { status: 503 }
     );
@@ -137,7 +137,10 @@ export async function POST(request: NextRequest) {
 
     if (!response.ok) {
       return NextResponse.json(
-        { ok: false, message: "Google Apps Script chưa nhận được RSVP." },
+        {
+          ok: false,
+          message: "Google Apps Script chưa nhận được phản hồi tham dự."
+        },
         { status: 502 }
       );
     }
@@ -145,7 +148,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json(
-      { ok: false, message: "Không thể gửi RSVP. Vui lòng thử lại sau." },
+      {
+        ok: false,
+        message: "Không thể gửi phản hồi tham dự. Vui lòng thử lại sau."
+      },
       { status: 502 }
     );
   }

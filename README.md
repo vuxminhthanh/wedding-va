@@ -1,6 +1,6 @@
 # Thiệp Cưới Online
 
-Website thiệp cưới online dùng Next.js App Router, TypeScript và Tailwind CSS. Nội dung chính được quản lý tại `data/wedding.ts`, form RSVP gửi qua API server-side đến Google Apps Script để ghi vào Google Sheet.
+Website thiệp cưới online dùng Next.js App Router, TypeScript và Tailwind CSS. Nội dung chính được quản lý tại `data/wedding.ts`, form xác nhận tham dự gửi qua API server-side đến Google Apps Script để ghi vào Google Sheet.
 
 ## Cài đặt
 
@@ -47,7 +47,7 @@ Bạn có thể đổi tên hoặc thêm ảnh mới, chỉ cần cập nhật l
 8. Deploy và copy Web App URL.
 
 Các cột được ghi: Timestamp, Name, Phone, Attending, Guests, Event, Message.
-Timestamp được tạo trong Apps Script theo múi giờ Việt Nam và ghi dạng `dd/MM/yyyy`; API chỉ gửi dữ liệu RSVP đã được trim và format trước khi ghi Sheet.
+Timestamp được tạo trong Apps Script theo múi giờ Việt Nam và ghi dạng `dd/MM/yyyy`; API chỉ gửi `name`, `phone`, `attending`, `guests`, `event`, `message` đã được trim trước khi ghi Sheet.
 
 ## Biến môi trường local
 
@@ -58,7 +58,7 @@ GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/xxxxx/exec"
 NEXT_PUBLIC_SITE_URL="http://localhost:3000"
 ```
 
-Nếu thiếu biến này, website vẫn render bình thường. Form RSVP sẽ báo lỗi cấu hình khi submit.
+Nếu thiếu biến này, website vẫn render bình thường. Form xác nhận tham dự sẽ báo lỗi cấu hình khi submit.
 `NEXT_PUBLIC_SITE_URL` chỉ dùng để tạo Open Graph URL đầy đủ; khi deploy hãy đổi sang domain thật.
 
 ## Deploy Vercel
@@ -70,10 +70,10 @@ Nếu thiếu biến này, website vẫn render bình thường. Form RSVP sẽ 
 5. Thêm `NEXT_PUBLIC_SITE_URL` với domain Vercel hoặc domain thật.
 6. Deploy.
 
-## Test RSVP
+## Test xác nhận tham dự
 
 1. Chạy local hoặc mở link Vercel.
-2. Gửi form RSVP với tên hợp lệ, số khách 1-10.
+2. Gửi form xác nhận tham dự với tên hợp lệ, số khách 1-10.
 3. Kiểm tra Google Sheet có thêm một dòng mới.
 4. Nếu lỗi, kiểm tra lại quyền deploy Apps Script và biến môi trường `GOOGLE_SCRIPT_URL`.
 

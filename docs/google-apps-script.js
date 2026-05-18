@@ -1,5 +1,5 @@
 /**
- * Google Apps Script mẫu cho RSVP.
+ * Google Apps Script mẫu cho form xác nhận tham dự.
  *
  * Cách dùng:
  * 1. Tạo Google Sheet mới và mở Extensions > Apps Script.

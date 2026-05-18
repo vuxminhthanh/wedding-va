@@ -110,8 +110,7 @@ export function RSVPForm() {
           attending: form.attending,
           guests: form.guests,
           event: form.event,
-          message: form.message.trim(),
-          honeypot: form.honeypot
+          message: form.message.trim()
         })
       });
       const result = (await response.json()) as { ok: boolean; message?: string };
@@ -121,11 +120,13 @@ export function RSVPForm() {
       }
 
       setStatus("success");
-      setFeedback("Cảm ơn bạn! Thông tin phản hồi đã được gửi thành công.");
+      setFeedback("Cảm ơn bạn, chúng mình đã nhận được phản hồi tham dự.");
       setForm(initialForm);
     } catch {
       setStatus("error");
-      setFeedback("Có lỗi xảy ra khi gửi phản hồi. Bạn vui lòng thử lại sau nhé.");
+      setFeedback(
+        "Chưa gửi được phản hồi. Bạn vui lòng thử lại hoặc liên hệ trực tiếp với gia đình nhé."
+      );
     } finally {
       isSubmittingRef.current = false;
     }
