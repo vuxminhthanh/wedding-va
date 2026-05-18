@@ -1,11 +1,6 @@
 import { MapPin, MessageCircle, Phone } from "lucide-react";
 
-type FloatingActionsProps = {
-  mapUrl: string;
-  phone: string;
-};
-
-export function FloatingActions({ mapUrl, phone }: FloatingActionsProps) {
+export function FloatingActions() {
   return (
     <nav
       aria-label="Thao tác nhanh"
@@ -21,16 +16,14 @@ export function FloatingActions({ mapUrl, phone }: FloatingActionsProps) {
         </a>
         <a
           className="inline-flex min-h-11 items-center justify-center gap-1 rounded-full px-3 text-xs font-semibold text-sage-deep hover:bg-sage/10"
-          href={mapUrl}
-          rel="noreferrer"
-          target="_blank"
+          href="#locations"
         >
           <MapPin aria-hidden="true" className="h-4 w-4" />
-          Maps
+          Địa điểm
         </a>
         <a
           className="inline-flex min-h-11 items-center justify-center gap-1 rounded-full px-3 text-xs font-semibold text-sage-deep hover:bg-sage/10"
-          href={`tel:${phone}`}
+          href="#locations"
         >
           <Phone aria-hidden="true" className="h-4 w-4" />
           Gọi

@@ -1,24 +1,41 @@
 export type WeddingEvent = {
   title: string;
-  date: string;
+  dayLabel: string;
   time: string;
-  locationName: string;
+  side: "bride" | "groom" | null;
+  locationLabel?: string;
+  note?: string;
+};
+
+export type WeddingLocation = {
+  label: string;
   address: string;
   mapUrl: string;
-  note?: string;
+  phone: string;
+};
+
+export type WeddingLocations = {
+  brideSide: WeddingLocation;
+  groomSide: WeddingLocation;
+};
+
+export type BankAccountInfo = {
+  label: string;
+  bankName: string;
+  accountName: string;
+  accountNumber: string;
+  qrImage: string;
 };
 
 export type BankInfo = {
   enabled: boolean;
-  bankName: string;
-  accountName: string;
-  accountNumber: string;
-  qrImage?: string;
+  accounts: BankAccountInfo[];
 };
 
 export type WeddingData = {
   groomName: string;
   brideName: string;
+  displayName: string;
   weddingDate: string;
   heroImage: string;
   heroImageMobile: string;
@@ -27,59 +44,78 @@ export type WeddingData = {
   secondaryImage: string;
   galleryImages: string[];
   events: WeddingEvent[];
-  mapUrl: string;
-  address: string;
-  phoneBride: string;
-  phoneGroom: string;
+  locations: WeddingLocations;
   bankInfo: BankInfo;
   invitationMessage: string;
 };
 
 export const weddingData: WeddingData = {
-  groomName: "Chú Rể",
-  brideName: "Cô Dâu",
-  weddingDate: "2026-12-20T10:00:00+07:00",
+  groomName: "Việt Anh",
+  brideName: "Lê Tươi",
+  displayName: "Việt Anh & Lê Tươi",
+  weddingDate: "2026-05-31T10:00:00+07:00",
   heroImage: "/images/hero-desktop-1920x1080-blur-bg.webp",
   heroImageMobile: "/images/hero-mobile-1080x1920.webp",
   heroImageDesktop: "/images/hero-desktop-1920x1080-blur-bg.webp",
   ogImage: "/images/og-wedding-1200x630.webp",
-  secondaryImage: "/images/hero-mobile-1080x1920.webp",
+  secondaryImage: "/images/wedding-invitation-photo.webp",
   galleryImages: [
-    "/images/hero-desktop-1920x1080-blur-bg.webp",
-    "/images/hero-mobile-1080x1920.webp",
-    "/images/og-wedding-1200x630.webp"
+    "/images/gallery/gallery-couple-floral-arch-full.webp",
+    "/images/gallery/gallery-couple-floral-arch-side.webp",
+    "/images/gallery/gallery-couple-garden-close.webp",
+    "/images/gallery/gallery-couple-studio.webp",
+    "/images/gallery/gallery-bride-portrait.webp",
+    "/images/gallery/gallery-groom-portrait.webp"
   ],
-  mapUrl: "https://maps.google.com/?q=Trung%20tam%20tiec%20cuoi",
-  address: "Trung tâm tiệc cưới, Quận 1, TP. Hồ Chí Minh",
-  phoneBride: "0900000001",
-  phoneGroom: "0900000002",
+  locations: {
+    brideSide: {
+      label: "Nhà gái",
+      address: "Thôn Kha Lý, xã Bắc Thuỵ Anh, tỉnh Hưng Yên",
+      mapUrl: "https://maps.app.goo.gl/M1KJSBdvR1D1dsnp8",
+      phone: "0364561255"
+    },
+    groomSide: {
+      label: "Nhà trai",
+      address: "Số 21 Nguyễn Khuyến, TDP Ngoại Trình, xã Thái Thuỵ, tỉnh Hưng Yên",
+      mapUrl: "https://maps.app.goo.gl/vSAcDFycFcPnMRMy5",
+      phone: "0383263393"
+    }
+  },
   invitationMessage:
     "Sự hiện diện của bạn là niềm vinh hạnh của gia đình chúng mình. Chúng mình rất mong được đón bạn trong ngày vui, cùng chia sẻ những khoảnh khắc ấm áp và đáng nhớ bên người thân, bạn bè.",
   events: [
     {
-      title: "Lễ ăn hỏi",
-      date: "2026-12-19",
+      dayLabel: "Chủ Nhật",
       time: "09:00",
-      locationName: "Tư gia nhà gái",
-      address: "Số 12, Đường Hoa Sữa, Quận 3, TP. Hồ Chí Minh",
-      mapUrl: "https://maps.google.com/?q=Quan%203%20TP%20Ho%20Chi%20Minh",
-      note: "Gia đình thân mật dùng trà và chụp hình lưu niệm."
+      title: "Tiệc cưới",
+      side: "bride",
+      locationLabel: "Nhà gái"
     },
     {
+      dayLabel: "Chủ Nhật",
+      time: "09:30",
       title: "Tiệc cưới",
-      date: "2026-12-20",
-      time: "18:00",
-      locationName: "Trung tâm tiệc cưới Garden Hall",
-      address: "Số 88, Đường Lá Xanh, Quận 1, TP. Hồ Chí Minh",
-      mapUrl: "https://maps.google.com/?q=Quan%201%20TP%20Ho%20Chi%20Minh",
-      note: "Đón khách từ 17:30. Tiệc bắt đầu lúc 18:00."
+      side: "groom",
+      locationLabel: "Nhà trai"
     }
   ],
   bankInfo: {
-    enabled: false,
-    bankName: "Ngân hàng mẫu",
-    accountName: "CO DAU CHU RE",
-    accountNumber: "0000000000",
-    qrImage: "/images/gift-qr.png"
+    enabled: true,
+    accounts: [
+      {
+        label: "Nhà trai",
+        accountName: "VU VIET ANH",
+        bankName: "Techcombank",
+        accountNumber: "1903 8608 7610 10",
+        qrImage: "/images/qr/qr-nha-trai.webp"
+      },
+      {
+        label: "Nhà gái",
+        accountName: "LE THI TUOI",
+        bankName: "VPBank",
+        accountNumber: "6868281200",
+        qrImage: "/images/qr/qr-nha-gai.webp"
+      }
+    ]
   }
 };

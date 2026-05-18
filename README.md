@@ -16,12 +16,12 @@ Mở `http://localhost:3000`.
 Sửa toàn bộ nội dung tại `data/wedding.ts`:
 
 - `groomName`, `brideName`
+- `displayName`
 - `weddingDate`
 - `heroImage`, `heroImageMobile`, `heroImageDesktop`, `ogImage`
 - `secondaryImage`, `galleryImages`
 - `events`
-- `mapUrl`, `address`
-- `phoneBride`, `phoneGroom`
+- `locations`
 - `bankInfo`
 - `invitationMessage`
 

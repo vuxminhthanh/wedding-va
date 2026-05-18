@@ -44,43 +44,43 @@ export function Hero({ data }: HeroProps) {
   });
 
   return (
-    <section className="relative flex min-h-[92svh] items-end overflow-hidden bg-sage-deep text-ivory sm:min-h-screen">
+    <section className="relative flex min-h-[100svh] items-end overflow-hidden bg-sage-deep text-ivory">
       <div className="botanical-image-fallback absolute inset-0" />
       <picture className="absolute inset-0">
         <source media="(min-width: 640px)" srcSet={desktopSrcSet} />
         <source media="(max-width: 639px)" srcSet={mobileSrcSet} />
         <img {...mobileImageProps} alt={imageAlt} />
       </picture>
-      <div className="absolute inset-0 bg-gradient-to-t from-sage-deep/80 via-sage-deep/36 to-ink/10" />
-      <div className="section-shell relative z-10 pb-24 pt-28 sm:pb-28">
-        <div className="max-w-2xl">
+      <div className="absolute inset-0 bg-gradient-to-t from-sage-deep/86 via-sage-deep/34 to-ink/8" />
+      <div className="section-shell relative z-10 pb-20 pt-28 sm:pb-28">
+        <div className="mx-auto max-w-xl rounded-lg bg-sage-deep/60 px-5 py-5 text-center shadow-soft ring-1 ring-ivory/12 backdrop-blur-[2px] sm:mx-0 sm:max-w-2xl sm:bg-sage-deep/30 sm:px-6 sm:py-7 sm:text-left">
           <p className="text-xs font-semibold uppercase tracking-[0.26em] text-ivory/85">
             We&apos;re getting married
           </p>
-          <h1 className="mt-5 font-serif text-5xl leading-tight text-ivory sm:text-7xl">
-            {data.groomName}
-            <span className="mx-3 text-champagne">&amp;</span>
-            {data.brideName}
+          <h1 className="mt-4 flex flex-col items-center font-serif text-4xl leading-none text-ivory sm:mt-5 sm:block sm:text-7xl sm:leading-tight">
+            <span className="block sm:inline">{data.groomName}</span>
+            <span className="block text-2xl leading-none text-champagne sm:mx-3 sm:inline sm:text-7xl">
+              &amp;
+            </span>
+            <span className="block sm:inline">{data.brideName}</span>
           </h1>
-          <div className="mt-6 flex items-center gap-3 text-sm font-medium text-ivory/92 sm:text-base">
+          <div className="mt-4 flex items-center justify-center gap-3 text-sm font-semibold text-ivory/92 sm:mt-6 sm:justify-start sm:text-base">
             <CalendarDays aria-hidden="true" className="h-5 w-5 text-champagne" />
             <span>{weddingDate}</span>
           </div>
-          <p className="mt-5 max-w-xl text-base leading-8 text-ivory/88 sm:text-lg">
+          <p className="mt-5 hidden max-w-xl text-base leading-8 text-ivory/88 sm:block sm:text-lg">
             Trân trọng kính mời bạn đến dự lễ cưới của chúng mình.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-5 flex gap-2 sm:mt-8 sm:gap-3">
             <a
-              className="inline-flex min-h-12 items-center justify-center rounded-full bg-ivory px-6 text-sm font-semibold text-sage-deep shadow-soft transition hover:bg-cream"
+              className="inline-flex min-h-12 flex-1 items-center justify-center rounded-full bg-ivory px-3 text-xs font-semibold text-sage-deep shadow-soft transition hover:bg-cream sm:flex-none sm:px-6 sm:text-sm"
               href="#rsvp"
             >
               Xác nhận tham dự
             </a>
             <a
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-ivory/42 px-6 text-sm font-semibold text-ivory transition hover:bg-ivory/12"
-              href={data.mapUrl}
-              rel="noreferrer"
-              target="_blank"
+              className="inline-flex min-h-12 flex-1 items-center justify-center gap-1 rounded-full border border-ivory/42 bg-sage-deep/40 px-3 text-xs font-semibold text-ivory transition hover:bg-sage-deep/55 sm:flex-none sm:gap-2 sm:bg-transparent sm:px-6 sm:text-sm sm:hover:bg-ivory/12"
+              href="#locations"
             >
               <MapPin aria-hidden="true" className="h-4 w-4" />
               Xem địa điểm

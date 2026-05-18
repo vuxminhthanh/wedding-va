@@ -12,7 +12,7 @@ const wishes = [
   {
     name: "Người thương mến",
     message:
-      "Gửi thật nhiều yêu thương đến cô dâu chú rể. Chúc hai bạn trăm năm hạnh phúc."
+      "Gửi thật nhiều yêu thương đến hai bạn. Chúc hai bạn trăm năm hạnh phúc."
   }
 ];
 
@@ -26,8 +26,7 @@ export function Wishes() {
             Những lời thương gửi lại
           </h2>
           <p className="mt-4 text-base leading-7 text-ink/70">
-            Section này đang dùng dữ liệu mẫu. Sau này có thể nối Google Sheet
-            hoặc Supabase để hiển thị lời chúc thật.
+            Cảm ơn những lời chúc thân thương đã gửi đến ngày vui của chúng mình.
           </p>
         </div>
         <div className="mt-10 grid gap-4 md:grid-cols-3">

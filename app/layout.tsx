@@ -7,20 +7,24 @@ const metadataBase = new URL(
   process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
 );
 
+const coupleDisplayName = weddingData.displayName;
+const siteTitle = `Thiệp cưới online - ${coupleDisplayName}`;
+const siteDescription = `Thiệp cưới online của ${coupleDisplayName}, trân trọng kính mời bạn đến dự lễ cưới.`;
+const imageAlt = `Ảnh cưới ${weddingData.groomName} và ${weddingData.brideName}`;
+
 export const metadata: Metadata = {
   metadataBase,
-  title: `Thiệp cưới online - ${weddingData.groomName} & ${weddingData.brideName}`,
-  description: `Trân trọng kính mời bạn đến dự lễ cưới của ${weddingData.groomName} và ${weddingData.brideName}.`,
+  title: siteTitle,
+  description: siteDescription,
   openGraph: {
-    title: `${weddingData.groomName} & ${weddingData.brideName}`,
-    description:
-      "Thiệp cưới online với thông tin sự kiện, bản đồ và xác nhận tham dự.",
+    title: siteTitle,
+    description: siteDescription,
     images: [
       {
         url: weddingData.ogImage,
         width: 1200,
         height: 630,
-        alt: `Thiệp cưới ${weddingData.groomName} & ${weddingData.brideName}`
+        alt: imageAlt
       }
     ],
     locale: "vi_VN",

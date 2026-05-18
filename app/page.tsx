@@ -11,23 +11,22 @@ import { Wishes } from "@/components/Wishes";
 import { weddingData } from "@/data/wedding";
 
 export default function Home() {
+  const weddingImageAlt = `Ảnh cưới ${weddingData.groomName} và ${weddingData.brideName}`;
+
   return (
     <>
       <main>
         <Hero data={weddingData} />
         <Countdown weddingDate={weddingData.weddingDate} />
         <InvitationMessage data={weddingData} />
-        <EventDetails events={weddingData.events} />
-        <Gallery images={weddingData.galleryImages} />
-        <RSVPForm events={weddingData.events} />
+        <EventDetails events={weddingData.events} locations={weddingData.locations} />
+        <Gallery imageAlt={weddingImageAlt} images={weddingData.galleryImages} />
+        <RSVPForm />
         <Wishes />
         <GiftSection bankInfo={weddingData.bankInfo} />
       </main>
       <Footer data={weddingData} />
-      <FloatingActions
-        mapUrl={weddingData.mapUrl}
-        phone={weddingData.phoneBride || weddingData.phoneGroom}
-      />
+      <FloatingActions />
     </>
   );
 }

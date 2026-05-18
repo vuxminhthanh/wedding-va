@@ -2,9 +2,10 @@ import { FallbackImage } from "@/components/FallbackImage";
 
 type GalleryProps = {
   images: string[];
+  imageAlt: string;
 };
 
-export function Gallery({ images }: GalleryProps) {
+export function Gallery({ imageAlt, images }: GalleryProps) {
   const visibleImages = images.slice(0, 8);
 
   if (!visibleImages.length) {
@@ -32,7 +33,7 @@ export function Gallery({ images }: GalleryProps) {
             >
               <FallbackImage
                 fill
-                alt={`Ảnh cưới ${index + 1}`}
+                alt={imageAlt}
                 className="h-full w-full object-cover transition duration-500 hover:scale-[1.03]"
                 fallbackClassName="absolute inset-0"
                 sizes={

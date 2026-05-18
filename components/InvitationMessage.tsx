@@ -12,7 +12,7 @@ export function InvitationMessage({ data }: InvitationMessageProps) {
         <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-sage/10 shadow-soft">
           <FallbackImage
             fill
-            alt={`Ảnh ${data.groomName} và ${data.brideName}`}
+            alt={`Ảnh cưới ${data.groomName} và ${data.brideName}`}
             className="h-full w-full object-cover"
             fallbackClassName="absolute inset-0"
             sizes="(min-width: 1024px) 40vw, 100vw"

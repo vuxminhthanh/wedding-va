@@ -1,13 +1,7 @@
 "use client";
 
 import { Send } from "lucide-react";
-import { FormEvent, useEffect, useMemo, useState } from "react";
-
-import type { WeddingEvent } from "@/data/wedding";
-
-type RSVPFormProps = {
-  events: WeddingEvent[];
-};
+import { FormEvent, useEffect, useState } from "react";
 
 type AttendingStatus = "yes" | "no" | "maybe";
 
@@ -26,6 +20,8 @@ const attendingOptions: Array<{ value: AttendingStatus; label: string }> = [
   { value: "maybe", label: "Sẽ báo lại" },
   { value: "no", label: "Không tham dự" }
 ];
+
+const partyOptions = ["Nhà gái", "Nhà trai", "Cả hai", "Chưa chắc"];
 
 const initialForm: FormState = {
   name: "",
@@ -54,8 +50,8 @@ function validateForm(form: FormState) {
     return "Số khách tham dự cần nằm trong khoảng 1 đến 10.";
   }
 
-  if (!form.event) {
-    return "Vui lòng chọn sự kiện bạn muốn phản hồi.";
+  if (!partyOptions.includes(form.event)) {
+    return "Vui lòng chọn bên dự tiệc.";
   }
 
   if (form.message.length > 500) {
@@ -65,12 +61,8 @@ function validateForm(form: FormState) {
   return "";
 }
 
-export function RSVPForm({ events }: RSVPFormProps) {
-  const defaultEvent = useMemo(() => events[0]?.title ?? "", [events]);
-  const [form, setForm] = useState<FormState>({
-    ...initialForm,
-    event: defaultEvent
-  });
+export function RSVPForm() {
+  const [form, setForm] = useState<FormState>(initialForm);
   const [source, setSource] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle"
@@ -83,13 +75,6 @@ export function RSVPForm({ events }: RSVPFormProps) {
       params.get("source") ?? params.get("src") ?? params.get("utm_source");
     setSource(sourceParam ? `${window.location.pathname}?source=${sourceParam}` : window.location.pathname);
   }, []);
-
-  useEffect(() => {
-    setForm((current) => ({
-      ...current,
-      event: current.event || defaultEvent
-    }));
-  }, [defaultEvent]);
 
   const updateForm = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((current) => ({ ...current, [key]: value }));
@@ -254,25 +239,35 @@ export function RSVPForm({ events }: RSVPFormProps) {
             </div>
           </fieldset>
 
-          <div>
-            <label className="text-sm font-semibold text-sage-deep" htmlFor="event">
-              Sự kiện *
-            </label>
-            <select
-              className="mt-2 min-h-12 w-full rounded-lg border border-sage/20 bg-white px-4 text-ink outline-none transition focus:border-sage"
-              id="event"
-              name="event"
-              onChange={(event) => updateForm("event", event.target.value)}
-              required
-              value={form.event}
-            >
-              {events.map((event) => (
-                <option key={`${event.title}-${event.date}`} value={event.title}>
-                  {event.title}
-                </option>
+          <fieldset>
+            <legend className="text-sm font-semibold text-sage-deep">
+              Bạn dự tiệc bên nào? *
+            </legend>
+            <div className="mt-3 grid gap-2 sm:grid-cols-4">
+              {partyOptions.map((option) => (
+                <label
+                  className={[
+                    "flex min-h-12 cursor-pointer items-center justify-center rounded-full px-4 text-sm font-semibold ring-1 transition",
+                    form.event === option
+                      ? "bg-sage text-white ring-sage"
+                      : "bg-white text-sage-deep ring-sage/18 hover:bg-cream"
+                  ].join(" ")}
+                  key={option}
+                >
+                  <input
+                    checked={form.event === option}
+                    className="sr-only"
+                    name="event"
+                    onChange={() => updateForm("event", option)}
+                    required
+                    type="radio"
+                    value={option}
+                  />
+                  {option}
+                </label>
               ))}
-            </select>
-          </div>
+            </div>
+          </fieldset>
 
           <div>
             <label className="text-sm font-semibold text-sage-deep" htmlFor="message">
