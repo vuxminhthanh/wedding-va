@@ -54,9 +54,9 @@ export const weddingData: WeddingData = {
   brideName: "Lê Tươi",
   displayName: "Việt Anh & Lê Tươi",
   weddingDate: "2026-06-07T10:00:00+07:00",
-  heroImage: "/images/hero-desktop-1920x1080-blur-bg.webp",
+  heroImage: "/images/hero-desktop.webp",
   heroImageMobile: "/images/hero-mobile-1080x1920.webp",
-  heroImageDesktop: "/images/hero-desktop-1920x1080-blur-bg.webp",
+  heroImageDesktop: "/images/hero-desktop.webp",
   ogImage: "/images/og-wedding-1200x630.webp",
   secondaryImage: "/images/wedding-invitation-photo.webp",
   galleryImages: [

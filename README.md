@@ -30,7 +30,7 @@ Sửa toàn bộ nội dung tại `data/wedding.ts`:
 Đặt ảnh vào `public/images` theo tên mặc định:
 
 - `hero-mobile-1080x1920.webp`
-- `hero-desktop-1920x1080-blur-bg.webp`
+- `hero-desktop.webp`
 - `og-wedding-1200x630.webp`
 
 Bạn có thể đổi tên hoặc thêm ảnh mới, chỉ cần cập nhật lại đường dẫn trong `data/wedding.ts`.
